@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoRustic – Pensiune Agroturistică</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:    #f5f0e8;
+  --bark:     #3b2a1a;
+  --moss:     #4a6741;
+  --moss-lt:  #6b8f62;
+  --gold:     #a87c3e;
+  --sand:     #c9a96e;
+  --white:    #ffffff;
+  --gray:     #888;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--cream);
+  color: var(--bark);
+  overflow-x: hidden;
+}
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--bark);
+  color: var(--sand);
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: .55rem 1rem;
+  font-size: .82rem;
+  letter-spacing: .04em;
+}
+.topbar a { color: var(--sand); text-decoration: none; }
+.topbar a:hover { color: var(--white); }
+.topbar span { display: flex; align-items: center; gap: .4rem; }
+
+/* ── NAVBAR ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(245,240,232,.96);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(59,42,26,.12);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .9rem 2.5rem;
+  transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: 0 4px 20px rgba(59,42,26,.14); }
+.nav-logo {
+  display: flex; flex-direction: column; align-items: center; gap: .1rem;
+  text-decoration: none;
+}
+.nav-logo .leaf { font-size: 1.7rem; }
+.nav-logo .brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem; font-weight: 600;
+  color: var(--bark); line-height: 1;
+}
+.nav-logo .brand-sub {
+  font-size: .6rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--gold);
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--bark);
+  font-size: .85rem; letter-spacing: .08em;
+  text-transform: uppercase; font-weight: 700;
+  position: relative; padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1.5px; background: var(--moss);
+  transition: width .3s;
+}
+.nav-links a:hover::after { width: 100%; }
+.btn-rezerva {
+  background: var(--moss); color: var(--white);
+  border: none; padding: .6rem 1.4rem;
+  font-family: 'Lato', sans-serif;
+  font-size: .82rem; letter-spacing: .1em;
+  text-transform: uppercase; font-weight: 700;
+  cursor: pointer; transition: background .25s;
+  text-decoration: none;
+}
+.btn-rezerva:hover { background: var(--bark); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 2px; background: var(--bark); display: block; transition: .3s; }
+
+/* ── HERO ── */
+.hero {
+  position: relative; height: 88vh; min-height: 520px;
+  display: flex; align-items: flex-end; justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(20,14,8,.18) 0%, rgba(20,14,8,.55) 100%),
+    url('familie.png') center/cover no-repeat;
+  transform: scale(1.04);
+  animation: heroZoom 18s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  from { transform: scale(1.04); }
+  to   { transform: scale(1.12); }
+}
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center; color: var(--white);
+  padding: 0 1.5rem 7vh;
+  animation: fadeUp .9s ease both;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(28px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+.hero-tag {
+  font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--sand); margin-bottom: .9rem; font-weight: 700;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 1.08; margin-bottom: 1rem;
+  text-shadow: 0 2px 20px rgba(0,0,0,.4);
+}
+.hero h1 em { font-style: italic; color: var(--sand); }
+.hero p {
+  font-size: 1rem; font-weight: 300;
+  max-width: 520px; margin: 0 auto 2rem;
+  line-height: 1.7; opacity: .88;
+}
+.hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--moss); color: var(--white);
+  padding: .85rem 2.2rem; font-weight: 700;
+  font-size: .85rem; letter-spacing: .1em; text-transform: uppercase;
+  text-decoration: none; transition: background .25s, transform .2s;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent; color: var(--white);
+  border: 1.5px solid rgba(255,255,255,.65);
+  padding: .85rem 2.2rem; font-weight: 700;
+  font-size: .85rem; letter-spacing: .1em; text-transform: uppercase;
+  text-decoration: none; transition: all .25s; display: inline-block;
+}
+.btn-outline:hover { background: rgba(255,255,255,.12); border-color: var(--white); }
+
+/* ── DIVIDER LEAF ── */
+.section-divider {
+  text-align: center; padding: 2.5rem 0 0;
+  font-size: 1.6rem; opacity: .35;
+  line-height: 1;
+}
+
+/* ── SECTION GENERIC ── */
+section { padding: 5rem 5vw; }
+.section-label {
+  font-size: .7rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: .5rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--bark); line-height: 1.2;
+  margin-bottom: 1.2rem;
+}
+.section-body {
+  color: #5a4030; font-weight: 300; line-height: 1.85;
+  max-width: 600px;
+}
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+  max-width: 1100px; margin: 0 auto;
+}
+.about-img-wrap { position: relative; }
+.about-img {
+  width: 100%; aspect-ratio: 4/5; object-fit: cover;
+  display: block;
+}
+.about-badge {
+  position: absolute; bottom: -1.5rem; right: -1.5rem;
+  background: var(--moss); color: var(--white);
+  width: 110px; height: 110px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  font-weight: 700;
+}
+.about-badge strong { font-size: 2rem; display: block; line-height: 1; }
+.about-features {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1rem; margin-top: 2rem;
+}
+.feat {
+  display: flex; align-items: flex-start; gap: .7rem;
+}
+.feat-icon { font-size: 1.3rem; margin-top: .1rem; }
+.feat-text { font-size: .85rem; font-weight: 400; color: #5a4030; line-height: 1.5; }
+.feat-text strong { display: block; color: var(--bark); font-weight: 700; margin-bottom: .1rem; }
+
+/* ── ROOMS ── */
+.rooms-section { background: var(--bark); color: var(--white); }
+.rooms-section .section-title { color: var(--white); }
+.rooms-section .section-label { color: var(--sand); }
+.rooms-section .section-body { color: rgba(255,255,255,.7); }
+.rooms-header {
+  max-width: 1100px; margin: 0 auto 3rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 1rem;
+}
+.rooms-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+}
+.room-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  transition: transform .3s, box-shadow .3s;
+  overflow: hidden;
+}
+.room-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+.room-img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
+.room-info { padding: 1.4rem; }
+.room-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; margin-bottom: .5rem; color: var(--white);
+}
+.room-info p { font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.6; margin-bottom: 1rem; }
+.room-price { color: var(--sand); font-weight: 700; font-size: .85rem; letter-spacing: .05em; }
+
+/* ── FACILITIES ── */
+.facilities-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem;
+  margin-top: 3rem;
+}
+.fac-card {
+  background: var(--white); padding: 2rem 1.5rem;
+  text-align: center; border-bottom: 3px solid transparent;
+  transition: border-color .3s, transform .3s;
+}
+.fac-card:hover { border-color: var(--moss); transform: translateY(-4px); }
+.fac-icon { font-size: 2.2rem; margin-bottom: .8rem; }
+.fac-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; margin-bottom: .4rem; }
+.fac-card p { font-size: .8rem; color: var(--gray); line-height: 1.6; }
+
+/* ── GALLERY ── */
+.gallery-section { background: #ede8dc; }
+.gallery-grid {
+  max-width: 1100px; margin: 2.5rem auto 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 220px 220px;
+  gap: 8px;
+}
+.gallery-item { overflow: hidden; }
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; transition: transform .5s;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item.tall { grid-row: span 2; }
+
+/* ── CONTACT ── */
+.contact-hero {
+  position: relative; height: 38vh; min-height: 260px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.contact-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(rgba(20,14,8,.55), rgba(20,14,8,.55)),
+    url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80') center/cover no-repeat;
+}
+.contact-hero h2 {
+  position: relative; z-index: 2;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--white); text-align: center;
+}
+
+.contact-section { background: var(--cream); }
+.contact-intro {
+  text-align: center; max-width: 600px; margin: 0 auto 3.5rem;
+}
+.contact-intro .section-label { display: block; margin-bottom: .5rem; }
+.contact-intro .section-title { margin-bottom: .8rem; }
+.contact-intro p { color: #5a4030; font-weight: 300; line-height: 1.8; }
+
+.contact-cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem; max-width: 900px; margin: 0 auto 4rem;
+}
+.contact-card {
+  background: var(--white); padding: 2rem 1.5rem;
+  text-align: center;
+  border-bottom: 3px solid var(--moss);
+  transition: box-shadow .25s;
+}
+.contact-card:hover { box-shadow: 0 8px 30px rgba(59,42,26,.12); }
+.contact-card .cc-icon { font-size: 1.8rem; margin-bottom: .7rem; }
+.contact-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; margin-bottom: .5rem; color: var(--bark);
+}
+.contact-card a, .contact-card p {
+  font-size: .88rem; color: #5a4030;
+  text-decoration: none; font-weight: 400;
+}
+.contact-card a:hover { color: var(--moss); }
+
+/* ── FORM ── */
+.form-wrapper {
+  max-width: 680px; margin: 0 auto;
+  background: var(--white);
+  padding: 3rem 2.5rem;
+  box-shadow: 0 4px 30px rgba(59,42,26,.1);
+}
+.form-wrapper h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem; margin-bottom: 2rem;
+  text-align: center; color: var(--bark);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.form-group { display: flex; flex-direction: column; margin-bottom: 1.2rem; }
+.form-group label {
+  font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+  font-weight: 700; color: var(--bark); margin-bottom: .4rem;
+}
+.form-group input, .form-group textarea, .form-group select {
+  background: transparent;
+  border: none; border-bottom: 1.5px solid #c8b89a;
+  padding: .55rem 0; font-family: 'Lato', sans-serif;
+  font-size: .95rem; color: var(--bark);
+  outline: none; transition: border-color .25s;
+  resize: none;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus { border-color: var(--moss); }
+.form-group textarea { min-height: 100px; }
+.form-checkbox { display: flex; align-items: flex-start; gap: .7rem; margin-bottom: 1.5rem; }
+.form-checkbox input { margin-top: .25rem; accent-color: var(--moss); }
+.form-checkbox label { font-size: .82rem; color: #5a4030; line-height: 1.5; }
+.btn-submit {
+  width: 100%; background: var(--moss); color: var(--white);
+  border: none; padding: 1rem; font-family: 'Lato', sans-serif;
+  font-size: .88rem; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 700; cursor: pointer; transition: background .25s;
+}
+.btn-submit:hover { background: var(--bark); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bark); color: rgba(255,255,255,.65);
+  padding: 3.5rem 5vw 2rem;
+}
+.footer-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 2.5rem; margin-bottom: 2.5rem;
+}
+.footer-brand .fn {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; color: var(--white); margin-bottom: .3rem;
+}
+.footer-brand .fs { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--sand); margin-bottom: 1rem; }
+.footer-brand p { font-size: .82rem; line-height: 1.7; }
+footer h4 { color: var(--white); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 1rem; }
+footer ul { list-style: none; }
+footer ul li { margin-bottom: .5rem; }
+footer ul li a { color: rgba(255,255,255,.55); text-decoration: none; font-size: .83rem; transition: color .2s; }
+footer ul li a:hover { color: var(--sand); }
+.footer-bottom {
+  max-width: 1100px; margin: 0 auto;
+  padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: .5rem; font-size: .75rem;
+}
+
+/* ── SCROLL TO TOP ── */
+#scrollTop {
+  position: fixed; bottom: 2rem; right: 2rem;
+  background: var(--moss); color: var(--white);
+  border: none; width: 44px; height: 44px;
+  font-size: 1.1rem; cursor: pointer;
+  opacity: 0; transition: opacity .3s, background .25s;
+  z-index: 200;
+}
+#scrollTop.show { opacity: 1; }
+#scrollTop:hover { background: var(--bark); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .about-grid, .rooms-grid, .facilities-grid { grid-template-columns: 1fr 1fr; }
+  .about-grid { gap: 2.5rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .gallery-item.tall { grid-row: span 1; }
+  nav { padding: .8rem 1.2rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+@media (max-width: 600px) {
+  .about-grid, .rooms-grid, .facilities-grid, .footer-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  section { padding: 3.5rem 1.2rem; }
+  .about-badge { right: 0; bottom: -1rem; }
+}
+
+/* ── MOBILE MENU OPEN ── */
+nav.menu-open .nav-links {
+  display: flex; flex-direction: column;
+  position: absolute; top: 100%; left: 0; right: 0;
+  background: var(--cream);
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(59,42,26,.1);
+  gap: 1.2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+}
+
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+  <span>📞 <a href="tel:0758663135">0758663135</a></span>
+  <span>✉️ <a href="mailto:ecorusticltcb@gmail.com">ecorusticltcb@gmail.com</a></span>
+</div>
+
+<!-- NAVBAR -->
+
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span class="leaf">🌿</span>
+    <span class="brand-name">EcoRustic</span>
+    <span class="brand-sub">Pensiune Agroturistică</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#despre">Despre</a></li>
+    <li><a href="#camere">Camere</a></li>
+    <li><a href="#facilitati">Facilități</a></li>
+    <li><a href="#restaurant">Restaurant</a></li>
+    <li><a href="#meniuri">Meniuri</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="btn-rezerva">Rezervă</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-tag">🌾 Natură · Tradiție · Autenticitate</p>
+    <h1>Bun venit la<br><em>EcoRustic</em></h1>
+    <p>Locul unde fiecare zi scrie o noua poveste.</p>
+    <div class="hero-btns">
+      <a href="#camere" class="btn-primary">Descoperă camerele</a>
+      <a href="#contact" class="btn-outline">Contactează-ne</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="despre">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img class="about-img"
+        src="pensiune.png"
+        alt="Interior rustic EcoRustic" />
+      <div class="about-badge">
+        <strong>15+</strong>
+        ani de ospitalitate
+      </div>
+    </div>
+    <div>
+      <p class="section-label">Povestea noastră</p>
+      <h2 class="section-title">O pensiune cu suflet,<br>în mijlocul naturii</h2>
+      <p class="section-body">
+        Situată în inima naturii, EcoRustic este o pensiune primitoare unde confortul se îmbină armonios cu tradiția. Construită din lemn și decorată cu elemente rustice autentice, pensiunea noastră oferă o atmosferă caldă și relaxantă, departe de agitația orașului. Fie că doriți să vă bucurați de aer curat, de mâncare tradițională sau de liniștea peisajelor naturale, la EcoRustic veți găsi locul perfect pentru a vă reconecta cu natura și cu voi înșivă. 
+      </p>
+      <div class="about-features">
+        <div class="feat">
+          <span class="feat-icon">🌱</span>
+          <div class="feat-text">
+            <strong>Produse bio</strong>
+            Legume și fructe din grădina noastră
+          </div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🏔️</span>
+          <div class="feat-text">
+            <strong>Peisaje superbe</strong>
+            Trasee montane la doi pași
+          </div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🍲</span>
+          <div class="feat-text">
+            <strong>Bucătărie tradițională</strong>
+            Rețete autentice românești
+          </div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🐄</span>
+          <div class="feat-text">
+            <strong>Fermă proprie</strong>
+            Lapte, brânzeturi și ouă de curte
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+
+<section class="rooms-section" id="camere">
+  <div class="rooms-header">
+    <div>
+      <p class="section-label">Cazare</p>
+      <h2 class="section-title">Camere</h2>
+      <p class="section-body">Fiecare cameră este decorată cu gust, combinând confortul modern cu elementele tradiționale.</p>
+    </div>
+    <a href="#contact" class="btn-outline" style="white-space:nowrap">Vezi disponibilitate</a>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card">
+      <img class="room-img"
+        src="camerasolo.png"
+        alt="Camera Solo" />
+      <div class="room-info">
+        <h3>Camera Solo</h3>
+        <p></p>
+        <span class="room-price">De la 200 RON / noapte</span>
+      </div>
+    </div>
+    <div class="room-card">
+      <img class="room-img"
+        src="cameradubla.png"
+        alt="Camera Dubla" />
+      <div class="room-info">
+        <h3>Camera Dubla</h3>
+        <p></p>
+        <span class="room-price">De la 250 RON / noapte</span>
+      </div>
+    </div>
+    <div class="room-card">
+      <img class="room-img"
+        src="camerafamily.png"
+        alt="Camera Family" />
+      <div class="room-info">
+        <h3>Camera Family</h3>
+        <p></p>
+        <span class="room-price">De la 350 RON / noapte</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACILITIES -->
+
+<section id="facilitati">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+    <p class="section-label">Ce oferim</p>
+    <h2 class="section-title">Facilități & Activități</h2>
+  </div>
+  <div class="facilities-grid">
+    <div class="fac-card">
+      <div class="fac-icon">🍳</div>
+      <h3>Mic dejun inclus</h3>
+      <p>Produse proaspete din gospodăria noastră, servite în fiecare dimineață.</p>
+    </div>
+    <div class="fac-card">
+      <div class="fac-icon">🚶</div>
+      <h3>Trasee montane</h3>
+      <p>Ghiduri locale disponibili pentru drumeții personalizate.</p>
+    </div>
+    <div class="fac-card">
+      <div class="fac-icon">🐴</div>
+      <h3>Activități la fermă</h3>
+      <p>Plimbări cu caii, hrănit animale, cules fructe — experiențe autentice.</p>
+    </div>
+    <div class="fac-card">
+      <div class="fac-icon">🔥</div>
+      <h3>Grătar & Terasă</h3>
+      <p>Zonă de barbecue cu priveliște panoramică spre pădure.</p>
+    </div>
+    <div class="fac-card">
+      <div class="fac-icon">🅿️</div>
+      <h3>Parcare gratuită</h3>
+      <p>Parcare privată și securizată pentru toți oaspeții noștri.</p>
+    </div>
+    <div class="fac-card">
+      <div class="fac-icon">📶</div>
+      <h3>Wi-Fi gratuit</h3>
+      <p>Conexiune rapidă disponibilă în toate spațiile pensiunii.</p>
+    </div>
+    <div class="fac-card">
+      <div class="fac-icon">🧖</div>
+      <h3>Relaxare</h3>
+      <p>Zonă de relaxare cu saună și jacuzzi, rezervabilă în avans.</p>
+    </div>
+    <div class="fac-card">
+      <div class="fac-icon">🧺</div>
+      <h3>Picnic & Natură</h3>
+      <p>Coșuri de picnic pregătite la cerere cu produse bio locale.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- RESTAURANT -->
+ <section id="restaurant">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img class="about-img"
+        src="restaurant.png"
+        alt="Interior rustic EcoRustic" />
+      <div class="about-badge">
+        <strong>Un</strong>
+        restaurant rustic, cald și primitor, perfect pentru relaxare.
+      </div>
+    </div>
+    <div>
+      <p class="section-label">Restaurant cu gust autentic, în mijlocul naturii</p>
+      <h2 class="section-title">Restaurantul nostru oferă o experiență culinară autentică<br></h2>
+      <p class="section-body">
+        unde preparatele tradiționale se îmbină perfect cu ingrediente proaspete și locale. Atmosfera caldă și decorul rustic creează cadrul ideal pentru mese relaxante, fie că vii cu familia, prietenii sau vrei doar să te bucuri de liniște și mâncare bună. De la rețete românești clasice până la preparate gătite cu grijă, fiecare masă devine un moment special. 
+      </p>
+      <div class="about-features">
+        <div class="feat">
+          <span class="feat-icon">🌱</span>
+          <div class="feat-text">
+            <strong>Produse locale</strong>
+            ingrediente proaspete din zonă
+          </div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🏔️</span>
+          <div class="feat-text">
+            <strong>Atmosferă rustică</strong>
+            caldă și primitoare
+          </div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🍲</span>
+          <div class="feat-text">
+            <strong>Bucătărie tradițională</strong>
+            rețete autentice românești
+          </div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">💆‍♂️</span>
+          <div class="feat-text">
+            <strong>Experiență relaxantă</strong>
+            departe de agitația orașului
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENIU  -->
+ <section id="meniuri" style="padding: 50px 20px; background-color: var(--cream);">
+    <h2 style="text-align: center; margin-bottom: 30px;">Meniul Nostru / Our Menu</h2>
+    
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+        
+        <div style="flex: 1; min-width: 320px; max-width: 450px;">
+    <h3 style="text-align: center; margin-bottom: 10px;">Română</h3>
+    
+    <div style="position: relative; width: 100%; height: 0; padding-top: 135%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 12px; overflow: hidden; background: #fff;">
+        <iframe loading="lazy" 
+            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; margin: 0; padding: 0;"
+            src="https://www.canva.com/design/DAG3RijuziU/2lgBaEr0IwZ3RKRb6eia3w/view?embed" 
+            allowfullscreen="allowfullscreen" allow="fullscreen">
+        </iframe>
+    </div>
+    
+    </div>
+
+       <div style="flex: 1; min-width: 320px; max-width: 450px;">
+    <h3 style="text-align: center; margin-bottom: 10px;">English</h3>
+    
+    <div style="position: relative; width: 100%; height: 0; padding-top: 135%; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 12px; overflow: hidden; background: #fff;">
+        <iframe loading="lazy" 
+            style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; margin: 0; padding: 0;"
+            src="https://www.canva.com/design/DAHCud7ecJo/1bUSZweVfh5AJgeqM-fQ0A/watch?embed" 
+            allowfullscreen="allowfullscreen" allow="fullscreen">
+        </iframe>
+    </div>
+</div>
+
+    </div>
+</section>
+
+ 
+
+
+<!-- CONTACT HERO -->
+
+<div class="contact-hero" id="contact">
+  <div class="contact-hero-bg"></div>
+  <h2 style="font-family:'Playfair Display',serif;">Contact</h2>
+</div>
+
+<!-- CONTACT SECTION -->
+
+<section class="contact-section">
+  <div class="contact-intro">
+    <span class="section-label">Contactați-ne</span>
+    <h2 class="section-title">Suntem mereu<br>la dispoziția dumneavoastră</h2>
+    <p>Pentru orice informație suplimentară sau rezervare, nu ezitați să ne sunați!
+
+La recepție vă va răspunde o voce caldă și prietenoasă, gata să vă ofere toate detaliile de care aveți nevoie. Echipa noastră vă stă mereu la dispoziție cu zâmbetul pe buze și cu dorința de a vă face șederea cât mai plăcută.</p>
+  </div>
+
+  <div class="contact-cards">
+    <div class="contact-card">
+      <div class="cc-icon">📞</div>
+      <h3>Informații</h3>
+      <a href="tel:0768895664">0768895664</a>
+    </div>
+    <div class="contact-card">
+      <div class="cc-icon">📅</div>
+      <h3>Rezervări</h3>
+      <a href="tel:0758663135">0758663135</a>
+    </div>
+    <div class="contact-card">
+      <div class="cc-icon">✉️</div>
+      <h3>Email</h3>
+      <a href="mailto:ecorusticltcb@gmail.com">ecorusticltcb@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="cc-icon">📍</div>
+      <h3>Adresă</h3>
+      <p>Strada Valea Chiejdului nr. 55,<br>Dej, Judetul Cluj</p>
+    </div>
+  </div>
+
+  <!-- FORM -->
+
+  <div class="form-wrapper">
+    <h3>Formular de contact</h3>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Nume</label>
+        <input type="text" placeholder="Popescu" />
+      </div>
+      <div class="form-group">
+        <label>Prenume</label>
+        <input type="text" placeholder="Ion" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" placeholder="ion@exemplu.ro" />
+    </div>
+    <div class="form-group">
+      <label>Telefon</label>
+      <input type="tel" placeholder="+40 700 000 000" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Check-in</label>
+        <input type="date" />
+      </div>
+      <div class="form-group">
+        <label>Check-out</label>
+        <input type="date" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Mesaj</label>
+      <textarea placeholder="Scrieți-ne întrebările sau solicitările dumneavoastră..."></textarea>
+    </div>
+    <div class="form-checkbox">
+      <input type="checkbox" id="gdpr" />
+      <label for="gdpr">Sunt de acord cu procesarea datelor conform politicii de confidențialitate.</label>
+    </div>
+    <button class="btn-submit" onclick="handleSubmit(event)">Trimite mesajul</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="fn">🌿 EcoRustic</div>
+      <div class="fs">Pensiune Agroturistică</div>
+      <p>Locul unde fiecare zi scrie o noua poveste.</p>
+    </div>
+    <div>
+      <h4>Navigare</h4>
+      <ul>
+        <li><a href="#despre">Despre noi</a></li>
+        <li><a href="#camere">Camere</a></li>
+        <li><a href="#facilitati">Facilități</a></li>
+        <li><a href="#restaurant">Restaurant</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Cazare</h4>
+      <ul>
+        <li><a href="#">Camera Solo</a></li>
+        <li><a href="#">Camera Dubla</a></li>
+        <li><a href="#">Camera Family</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:0768895664">0768895664</a></li>
+        <li><a href="mailto:ecorusticltcb@gmail.com">ecorusticltcb@gmail.com</a></li>
+        <li><a href="#">Strada Valea Chiejdului nr. 55</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 EcoRustic. Toate drepturile rezervate.</span>
+    <span>Politică de confidențialitate · GDPR</span>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+<script>
+  // Navbar sticky shadow
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+    document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 300);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    nav.classList.toggle('menu-open');
+  }
+  // Close on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => nav.classList.remove('menu-open'));
+  });
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    btn.textContent = '✓ Mesaj trimis!';
+    btn.style.background = '#4a6741';
+    setTimeout(() => {
+      btn.textContent = 'Trimite mesajul';
+      btn.style.background = '';
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
